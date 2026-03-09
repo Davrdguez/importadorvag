@@ -1,5 +1,6 @@
 ---
 import SEO from "../components/SEO.astro";
+import favicon from "../assets/favicon.png";
 import "../styles/global.css";
 
 export interface Props {
@@ -20,6 +21,7 @@ const schemaMarkup = schema ? JSON.stringify(schema) : null;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/png" href={favicon.src} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
