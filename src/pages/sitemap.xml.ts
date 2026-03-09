@@ -5,7 +5,7 @@ import { siteUrl } from "../data/site";
 
 const staticPages = [
   "/",
-  "/about",
+  "/sobre-nosotros",
   "/contacto",
   "/catalogo",
   "/blog",

@@ -33,17 +33,17 @@ export const footerColumns = [
   {
     title: "Enlaces utiles",
     links: [
-      { label: "Revision mecanica", href: "/about" },
-      { label: "Proceso de importacion", href: "/about" },
-      { label: "Matriculacion", href: "/about" },
+      { label: "Revision mecanica", href: "/sobre-nosotros" },
+      { label: "Proceso de importacion", href: "/sobre-nosotros" },
+      { label: "Matriculacion", href: "/sobre-nosotros" },
       { label: "Consejos de compra", href: "/blog" }
     ]
   },
   {
     title: "Sobre nosotros",
     links: [
-      { label: "Empresa", href: "/about" },
-      { label: "Servicio tecnico", href: "/about" },
+      { label: "Empresa", href: "/sobre-nosotros" },
+      { label: "Servicio tecnico", href: "/sobre-nosotros" },
       { label: "Novedades", href: "/blog" },
       { label: "Catalogo", href: "/catalogo" }
     ]
@@ -52,7 +52,7 @@ export const footerColumns = [
     title: "Ayuda",
     links: [
       { label: "Contacto", href: "/contacto" },
-      { label: "Preguntas frecuentes", href: "/about" },
+      { label: "Preguntas frecuentes", href: "/sobre-nosotros" },
       { label: "Politica de privacidad", href: "/politica-privacidad" },
       { label: "Politica de cookies", href: "/politica-cookies" },
       { label: "Aviso legal", href: "/aviso-legal" }

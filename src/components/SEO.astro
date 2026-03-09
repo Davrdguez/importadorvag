@@ -5,6 +5,7 @@ export interface Props {
   canonical?: string;
   image?: string;
   type?: "website" | "article";
+  robots?: string;
 }
 
 const {
@@ -12,7 +13,8 @@ const {
   description,
   canonical = "https://importarvagalemania.vercel.app/",
   image = "https://importarvagalemania.vercel.app/og-importacion-vag.jpg",
-  type = "website"
+  type = "website",
+  robots = "index,follow"
 } = Astro.props;
 ---
 
@@ -20,7 +22,7 @@ const {
 <meta name="description" content={description} />
 <meta name="google-site-verification" content="kqPs6gIgDGCtcI_lGPCbo9OflTdr1eGSXnit2xjRct8" />
 <link rel="canonical" href={canonical} />
-<meta name="robots" content="index,follow" />
+<meta name="robots" content={robots} />
 <meta property="og:locale" content="es_ES" />
 <meta property="og:type" content={type} />
 <meta property="og:title" content={title} />

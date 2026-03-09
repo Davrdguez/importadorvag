@@ -1,0 +1,46 @@
+---
+import FooterSection from "../components/home/FooterSection.astro";
+import HeaderSection from "../components/home/HeaderSection.astro";
+import { siteUrl } from "../data/site";
+import Layout from "../layouts/Layout.astro";
+
+const title = "404 | Pagina no encontrada";
+const description =
+  "La pagina que buscas no existe o ha sido movida. Vuelve al inicio o revisa secciones principales.";
+const canonical = `${siteUrl}/404`;
+---
+
+<Layout title={title} description={description} canonical={canonical} robots="noindex,follow">
+  <main class="min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,_#111111,_#0a0a0a)] text-white">
+    <HeaderSection />
+
+    <section class="px-5 py-20 sm:px-8 sm:py-24 lg:px-10">
+      <div class="mx-auto max-w-[980px] rounded-[14px] border border-white/10 bg-white/[0.03] p-8 shadow-[0_16px_40px_rgba(0,0,0,0.35)] sm:p-12">
+        <p class="font-['Montserrat'] text-[12px] font-bold uppercase tracking-[0.22em] text-red-500">Error 404</p>
+        <h1 class="mt-3 font-['Montserrat'] text-[38px] font-extrabold leading-[1.05] sm:text-[54px]">
+          Pagina no encontrada
+        </h1>
+        <p class="mt-5 max-w-[62ch] text-[16px] leading-8 text-white/70">
+          La URL solicitada no esta disponible. Puede que el contenido haya cambiado de ruta o que el enlace tenga un error.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href="/"
+            class="inline-flex rounded-[10px] bg-[#d10000] px-6 py-3 font-['Montserrat'] text-[14px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-[#b20000]"
+          >
+            Volver al inicio
+          </a>
+          <a
+            href="/catalogo"
+            class="inline-flex rounded-[10px] border border-white/25 px-6 py-3 font-['Montserrat'] text-[14px] font-bold uppercase tracking-[0.16em] text-white transition hover:border-white/45"
+          >
+            Ir al catalogo
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>
