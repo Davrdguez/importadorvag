@@ -1,4 +1,4 @@
-export const siteUrl = "https://cochesalemiavag.es" as const;
+export const siteUrl = "https://importarvagalemania.vercel.app" as const;
 
 export const topLinks = ["f", "t", "i"] as const;
 

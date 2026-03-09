@@ -2,7 +2,7 @@ export const aboutSeo = {
   title: "Nosotros | Importacion de coches diesel Grupo VAG",
   description:
     "Pagina sobre nosotros con estructura modular, proceso de trabajo y enfoque en importacion segura de coches diesel del Grupo VAG.",
-  canonical: "https://cochesalemiavag.es/about"
+  canonical: "https://importarvagalemania.vercel.app/about"
 } as const;
 
 export const aboutHero = {

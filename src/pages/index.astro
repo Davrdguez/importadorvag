@@ -14,7 +14,7 @@ import { getLatestBlogPosts } from "../data/blog";
 const title = "Importacion de Coches Diesel Grupo VAG desde Alemania";
 const description =
   "Home adaptada en Astro para importacion de coches diesel del Grupo VAG desde Alemania con revision tecnica por ingeniero mecanico colegiado.";
-const canonical = "https://cochesalemiavag.es/";
+const canonical = "https://importarvagalemania.vercel.app/";
 const latestPosts = await getLatestBlogPosts(3);
 
 const schema = {
@@ -22,7 +22,7 @@ const schema = {
   "@type": "AutoDealer",
   name: "Coches Alemania VAG",
   url: canonical,
-  telephone: "+34 620 874 040",
+  telephone: "+34 661 34 87 96",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Avenida de Europa 14",
@@ -30,7 +30,7 @@ const schema = {
     postalCode: "28023",
     addressCountry: "ES"
   },
-  areaServed: "Espana",
+  areaServed: "España",
   description,
   slogan: "Revision Tecnica por Ingeniero Mecanico Colegiado"
 };
@@ -43,7 +43,6 @@ const schema = {
     <div class="w-full overflow-hidden bg-[#f3f3f3]">
       <HeroSection />
       <BrandsSection />
-      <DualActionSection />
       <CatalogSection />
       <PromoSection />
       <ContactSection />

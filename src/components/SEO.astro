@@ -10,14 +10,15 @@ export interface Props {
 const {
   title,
   description,
-  canonical = "https://cochesalemiavag.es/",
-  image = "https://cochesalemiavag.es/og-importacion-vag.jpg",
+  canonical = "https://importarvagalemania.vercel.app/",
+  image = "https://importarvagalemania.vercel.app/og-importacion-vag.jpg",
   type = "website"
 } = Astro.props;
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
+<meta name="google-site-verification" content="kqPs6gIgDGCtcI_lGPCbo9OflTdr1eGSXnit2xjRct8" />
 <link rel="canonical" href={canonical} />
 <meta name="robots" content="index,follow" />
 <meta property="og:locale" content="es_ES" />

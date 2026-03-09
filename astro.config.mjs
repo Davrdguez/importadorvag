@@ -3,7 +3,7 @@ import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: "https://cochesalemiavag.es",
+  site: "https://importarvagalemania.vercel.app",
   integrations: [mdx()],
   vite: {
     plugins: [tailwindcss()]

@@ -1,8 +1,8 @@
 export const contactSeo = {
   title: "Contacto | Importacion de Coches Diesel Grupo VAG",
   description:
-    "Pagina de contacto modular para resolver dudas, solicitar disponibilidad y pedir presupuesto de importacion.",
-  canonical: "https://cochesalemiavag.es/contacto"
+    "Pagina de contacto para resolver dudas, solicitar disponibilidad y pedir presupuesto de importacion.",
+  canonical: "https://importarvagalemania.vercel.app/contacto"
 } as const;
 
 export const contactHero = {
@@ -30,13 +30,13 @@ export const contactInfo = {
     },
     {
       title: "Email",
-      description: "contacto@cochesalemiavag.es",
+      description: "hola@davrdguez.com",
       image: "http://demo2.strongtheme.com/autocar/wp-content/uploads/sites/3/2021/07/autolisting80.png",
       alt: "Icono de email"
     },
     {
       title: "Telefono",
-      description: "+34 620 874 040",
+      description: "+34 661 34 87 96",
       image: "http://demo2.strongtheme.com/autocar/wp-content/uploads/sites/3/2021/07/autolisting79.png",
       alt: "Icono de telefono"
     },
@@ -57,7 +57,6 @@ export const contactForm = {
   selectOptions: [
     "Consultar disponibilidad",
     "Pedir presupuesto de importacion",
-    "Solicitar revision mecanica",
     "Resolver una duda"
   ]
 } as const;

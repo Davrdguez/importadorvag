@@ -61,7 +61,7 @@ export const catalogSeo = {
   title: "Catalogo | Coches diesel Grupo VAG de Alemania",
   description:
     "Catalogo modular preparado por marca, modelo y variante para Volkswagen, SEAT, Audi y Skoda.",
-  canonical: "https://cochesalemiavag.es/catalogo"
+  canonical: "https://importarvagalemania.vercel.app/catalogo"
 } as const;
 
 export const catalogSeoContent: SeoContentBlock = {

@@ -20,6 +20,9 @@ const {
   prefilledModel,
   className = ""
 } = Astro.props;
+
+const formAction = "https://formsubmit.co/hola@davrdguez.com";
+const successUrl = "https://importarvagalemania.vercel.app/contacto?enviado=1";
 ---
 
 <div class:list={["rounded-[10px] border border-[#e7e7e7] bg-white p-5 shadow-[0_12px_30px_rgba(0,0,0,0.04)] sm:p-6", className]}>
@@ -34,26 +37,29 @@ const {
     </p>
   )}
 
-  <form class="mt-5 grid gap-3">
+  <form class="mt-5 grid gap-3" method="POST" action={formAction}>
+    <input type="hidden" name="_subject" value="Nueva consulta desde importarvagalemania.vercel.app" />
+    <input type="hidden" name="_next" value={successUrl} />
+    <input type="hidden" name="_captcha" value="false" />
     <div class="grid gap-3 sm:grid-cols-2">
-      <input type="text" placeholder="NOMBRE" class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#111111] outline-none placeholder:text-[#8d8d8d] focus:border-[#d10000]" />
-      <input type="text" placeholder="APELLIDOS" class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#111111] outline-none placeholder:text-[#8d8d8d] focus:border-[#d10000]" />
+      <input type="text" name="nombre" placeholder="NOMBRE" required class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#111111] outline-none placeholder:text-[#8d8d8d] focus:border-[#d10000]" />
+      <input type="text" name="apellidos" placeholder="APELLIDOS" required class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#111111] outline-none placeholder:text-[#8d8d8d] focus:border-[#d10000]" />
     </div>
     <div class="grid gap-3 sm:grid-cols-2">
-      <input type="tel" placeholder="TELEFONO" class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#111111] outline-none placeholder:text-[#8d8d8d] focus:border-[#d10000]" />
-      <input type="email" placeholder="CORREO ELECTRONICO" class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#111111] outline-none placeholder:text-[#8d8d8d] focus:border-[#d10000]" />
+      <input type="tel" name="telefono" placeholder="TELEFONO" required class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#111111] outline-none placeholder:text-[#8d8d8d] focus:border-[#d10000]" />
+      <input type="email" name="email" placeholder="CORREO ELECTRONICO" required class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#111111] outline-none placeholder:text-[#8d8d8d] focus:border-[#d10000]" />
     </div>
     {prefilledModel ? (
-      <input type="text" value={prefilledModel} readonly class="border border-[#d9d9d9] bg-[#f4f4f4] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#5e5e5e] outline-none" />
+      <input type="text" name="modelo" value={prefilledModel} readonly class="border border-[#d9d9d9] bg-[#f4f4f4] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#5e5e5e] outline-none" />
     ) : (
-      <select class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#111111] outline-none focus:border-[#d10000]">
-        <option>{selectPlaceholder}</option>
+      <select name="motivo" required class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.18em] text-[#111111] outline-none focus:border-[#d10000]">
+        <option value="" selected disabled>{selectPlaceholder}</option>
         {selectOptions.map((option) => (
-          <option>{option}</option>
+          <option value={option}>{option}</option>
         ))}
       </select>
     )}
-    <textarea placeholder="Comentarios" rows="5" class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[14px] leading-7 text-[#111111] outline-none placeholder:text-[#8d8d8d] focus:border-[#d10000]"></textarea>
+    <textarea name="comentarios" placeholder="Comentarios" rows="5" class="border border-[#d9d9d9] bg-[#fbfbfb] px-4 py-3 font-['Montserrat'] text-[14px] leading-7 text-[#111111] outline-none placeholder:text-[#8d8d8d] focus:border-[#d10000]"></textarea>
     <button id={buttonId} type="submit" class="bg-[#d10000] px-6 py-3 font-['Montserrat'] text-[15px] font-bold uppercase tracking-[0.22em] text-white transition hover:bg-[#b00000]">
       {submitLabel}
     </button>
