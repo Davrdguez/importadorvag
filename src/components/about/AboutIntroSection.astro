@@ -1,0 +1,41 @@
+---
+import SectionRibbon from "../shared/SectionRibbon.astro";
+
+interface Props {
+  title: string;
+  intro: string;
+  body: string;
+  buttonLabel: string;
+  image: string;
+  imageAlt: string;
+}
+
+const { title, intro, body, buttonLabel, image, imageAlt } = Astro.props;
+---
+
+<section class="bg-[#f6f6f6] px-5 py-14 text-[#141414] sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+  <div class="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+    <div class="max-w-[560px]">
+      <SectionRibbon title={title} align="left" />
+      <p class="mt-8 border-l-[3px] border-[#d40b0b] pl-5 text-[16px] leading-8 text-[#3d3d3d] sm:text-[17px] sm:leading-9">
+        {intro}
+      </p>
+      <p class="mt-7 text-[15px] leading-8 text-[#7a7a7a] sm:text-[16px] sm:leading-9">
+        {body}
+      </p>
+      <a
+        href="/contacto"
+        class="mt-9 inline-flex rounded-[10px] bg-[#0f0f0f] px-7 py-4 font-['Montserrat'] text-[17px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:-translate-y-0.5 hover:bg-[#d10000]"
+      >
+        {buttonLabel}
+      </a>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-[520px]">
+      <div class="absolute left-2 top-2 h-[88%] w-[88%] -skew-x-[10deg] bg-[#d10000] shadow-[0_20px_60px_rgba(209,0,0,0.25)] sm:left-4 sm:top-4"></div>
+      <div class="relative overflow-hidden bg-white [clip-path:polygon(11%_0,100%_0,89%_100%,0_100%)]">
+        <img src={image} alt={imageAlt} loading="lazy" class="h-full w-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>

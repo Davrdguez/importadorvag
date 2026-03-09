@@ -1,0 +1,15 @@
+---
+interface Props {
+  title: string;
+  align?: "left" | "center";
+  className?: string;
+}
+
+const { title, align = "center", className = "" } = Astro.props;
+---
+
+<div class:list={["flex", align === "center" ? "justify-center" : "justify-start", className]}>
+  <span class="inline-flex min-w-[190px] items-center justify-center bg-[linear-gradient(90deg,_#d10000,_#ff2200)] px-8 py-3 font-['Montserrat'] text-[20px] font-bold uppercase tracking-[0.04em] text-white [clip-path:polygon(9%_0,100%_0,91%_100%,0_100%)]">
+    {title}
+  </span>
+</div>

@@ -1,0 +1,59 @@
+---
+import VehicleCard from "../shared/VehicleCard.astro";
+import type { CatalogVehicle } from "../../data/catalog";
+
+interface Props {
+  vehicles: readonly CatalogVehicle[];
+  title?: string;
+  description?: string;
+}
+
+const { vehicles, title = "Variantes disponibles", description } = Astro.props;
+---
+
+<section class="bg-[#f7f7f7] px-5 py-8 sm:px-8 lg:px-10">
+  <div class="mx-auto max-w-[1280px]">
+    <div class="mb-8 flex flex-col gap-3">
+      <h2 class="font-['Montserrat'] text-[34px] font-semibold text-[#141414] sm:text-[42px]">
+        {title}
+      </h2>
+      {description && (
+        <p class="max-w-[70ch] text-[16px] leading-8 text-[#737373]">
+          {description}
+        </p>
+      )}
+    </div>
+
+    <div class="mb-10 flex justify-end">
+      <input
+        id="catalog-search"
+        type="search"
+        placeholder="Search..."
+        class="w-full max-w-[300px] rounded-[8px] border border-[#ececec] bg-white px-4 py-3 text-[14px] text-[#141414] outline-none placeholder:text-[#9a9a9a] focus:border-[#d10000]"
+      />
+    </div>
+
+    <div id="catalog-grid" class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      {vehicles.map((vehicle) => (
+        <div data-vehicle-card data-search={`${vehicle.name} ${vehicle.brand} ${vehicle.model} ${vehicle.trim} ${vehicle.meta}`.toLowerCase()}>
+          <VehicleCard vehicle={vehicle} ctaLabel="Ver ficha y contactar" />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <script is:inline>
+    const catalogSearch = document.getElementById("catalog-search");
+    const cards = Array.from(document.querySelectorAll("[data-vehicle-card]"));
+
+    if (catalogSearch) {
+      catalogSearch.addEventListener("input", () => {
+        const value = catalogSearch.value.toLowerCase().trim();
+        cards.forEach((card) => {
+          const haystack = card.getAttribute("data-search") || "";
+          card.classList.toggle("hidden", value.length > 0 && !haystack.includes(value));
+        });
+      });
+    }
+  </script>
+</section>

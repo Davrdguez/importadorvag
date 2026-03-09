@@ -1,0 +1,46 @@
+---
+import BlogGridSection from "../../components/blog/BlogGridSection.astro";
+import FooterSection from "../../components/home/FooterSection.astro";
+import Breadcrumbs from "../../components/shared/Breadcrumbs.astro";
+import PageHero from "../../components/shared/PageHero.astro";
+import { blogHero, blogSeo, getAllBlogPosts } from "../../data/blog";
+import Layout from "../../layouts/Layout.astro";
+
+const posts = await getAllBlogPosts();
+
+const breadcrumbItems = [
+  { label: "Inicio", href: "/" },
+  { label: "Blog" }
+] as const;
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Blog Coches Alemania VAG",
+    url: blogSeo.canonical,
+    description: blogSeo.description
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://cochesalemiavag.es/" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: blogSeo.canonical }
+    ]
+  }
+];
+---
+
+<Layout title={blogSeo.title} description={blogSeo.description} canonical={blogSeo.canonical} schema={schema}>
+  <main class="overflow-x-hidden bg-[#f6f6f6]">
+    <PageHero {...blogHero} activePath="/blog" />
+    <Breadcrumbs items={breadcrumbItems} />
+    <BlogGridSection
+      posts={posts}
+      title="Articulos SEO para captar trafico cualificado"
+      description="Guias enfocadas a busquedas con intencion real de compra o consulta sobre Volkswagen, Audi, SEAT y Skoda diesel importados desde Alemania."
+    />
+    <FooterSection />
+  </main>
+</Layout>

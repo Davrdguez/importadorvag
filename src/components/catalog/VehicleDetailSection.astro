@@ -1,0 +1,134 @@
+---
+import InquiryForm from "../shared/InquiryForm.astro";
+import SectionRibbon from "../shared/SectionRibbon.astro";
+import VehicleCard from "../shared/VehicleCard.astro";
+import type { CatalogVehicle } from "../../data/catalog";
+
+interface SidebarConfig {
+  title: string;
+  subtitle: string;
+  submitLabel: string;
+  buttonId: string;
+}
+
+interface QuestionCard {
+  title: string;
+  body: string;
+  buttonLabel: string;
+}
+
+interface Props {
+  vehicle: CatalogVehicle;
+  sidebar: SidebarConfig;
+  popularVehicles: readonly CatalogVehicle[];
+  questionCard: QuestionCard;
+}
+
+const { vehicle, sidebar, popularVehicles, questionCard } = Astro.props;
+const heroImage = vehicle.gallery[0] ?? vehicle.image;
+const heroBadge = vehicle.price || [vehicle.engine, vehicle.power].filter(Boolean).join(" · ") || "Consulta disponibilidad";
+---
+
+<section class="bg-[#f7f7f7] px-5 py-14 text-[#141414] sm:px-8 sm:py-20 lg:px-10">
+  <div class="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[0.68fr_0.32fr] lg:items-start">
+    <div>
+      <div class="rounded-[12px] bg-white p-6 shadow-[0_12px_28px_rgba(0,0,0,0.05)]">
+        <div class="flex justify-center">
+          <img id="vehicle-main-image" src={heroImage} alt={vehicle.alt} class="h-[360px] w-full max-w-[720px] object-contain sm:h-[420px]" />
+        </div>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-4">
+          {vehicle.gallery.map((image, index) => (
+            <button type="button" class="overflow-hidden rounded-[10px] border border-[#ececec] bg-[#fafafa] p-2" data-gallery-thumb data-gallery-image={image}>
+              <img src={image} alt={`${vehicle.name} vista ${index + 1}`} loading="lazy" class="h-[96px] w-full object-contain" />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <p class="font-['Montserrat'] text-[12px] uppercase tracking-[0.24em] text-[#9d9d9d]">
+            {vehicle.meta} / {vehicle.year}
+          </p>
+          <h2 class="mt-2 font-['Montserrat'] text-[40px] font-semibold uppercase leading-none text-[#141414] sm:text-[52px]">
+            {vehicle.name}
+          </h2>
+        </div>
+        <span class="inline-flex w-max bg-[linear-gradient(90deg,_#d10000,_#ff2200)] px-8 py-4 font-['Montserrat'] text-[18px] font-bold text-white [clip-path:polygon(10%_0,100%_0,90%_100%,0_100%)] sm:text-[22px]">
+          {heroBadge}
+        </span>
+      </div>
+
+      <div class="mt-10">
+        <SectionRibbon title="Datos principales" align="left" />
+        <div class="mt-6 overflow-hidden rounded-[10px] border border-[#e7e7e7] bg-white">
+          {vehicle.basics.map((item) => (
+            <div class="grid grid-cols-2 border-b border-[#efefef] px-5 py-4 text-[15px] last:border-b-0">
+              <span class="text-[#555555]">{item[0]}</span>
+              <span class="text-[#8a8a8a]">{item[1]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-12">
+        <SectionRibbon title="Equipamiento" align="left" />
+        <div class="mt-6 overflow-hidden rounded-[10px] border border-[#e7e7e7] bg-white">
+          {vehicle.features.map((item) => (
+            <div class="grid grid-cols-2 border-b border-[#efefef] px-5 py-4 text-[15px] last:border-b-0">
+              <span class="text-[#555555]">{item[0]}</span>
+              <span class="text-[#8a8a8a]">{item[1]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-12 rounded-[10px] border border-[#dddddd] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.04)]">
+        <SectionRibbon title={questionCard.title} align="left" />
+        <p class="mt-6 max-w-[60ch] text-[15px] leading-8 text-[#7c7c7c]">
+          {questionCard.body}
+        </p>
+        <a
+          href={`/contacto?vehiculo=${vehicle.slug}`}
+          class="mt-6 inline-flex rounded-[10px] bg-[#d10000] px-6 py-3 font-['Montserrat'] text-[15px] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#b70000]"
+        >
+          {questionCard.buttonLabel}
+        </a>
+      </div>
+    </div>
+
+    <aside class="space-y-6">
+      <InquiryForm
+        title={sidebar.title}
+        subtitle={sidebar.subtitle}
+        submitLabel={sidebar.submitLabel}
+        buttonId={sidebar.buttonId}
+        prefilledModel={`MODELO: ${vehicle.name}`}
+      />
+
+      <div>
+        <SectionRibbon title="Modelos destacados" align="left" />
+        <div class="mt-6 space-y-5">
+          {popularVehicles.map((popularVehicle) => (
+            <VehicleCard vehicle={popularVehicle} variant="sidebar" ctaLabel="Ver ficha" />
+          ))}
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script is:inline>
+    const mainImage = document.getElementById("vehicle-main-image");
+    const thumbs = Array.from(document.querySelectorAll("[data-gallery-thumb]"));
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        const nextImage = thumb.getAttribute("data-gallery-image");
+        if (mainImage && nextImage) {
+          mainImage.setAttribute("src", nextImage);
+        }
+      });
+    });
+  </script>
+</section>

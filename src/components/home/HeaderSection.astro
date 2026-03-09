@@ -1,0 +1,131 @@
+---
+import { navLinks, siteMeta, topLinks } from "../../data/site";
+
+interface Props {
+  activePath?: string;
+}
+
+const { activePath = "/" } = Astro.props;
+
+const isActiveLink = (href: string) => {
+  if (href === "/") {
+    return activePath === "/";
+  }
+
+  return activePath === href;
+};
+---
+
+<div class="w-full border-b border-white/5 bg-black/20">
+  <div class="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-3 text-[9px] uppercase tracking-[0.26em] text-white/50 sm:px-8 lg:px-10">
+    <div class="flex items-center gap-3 sm:gap-6">
+      {topLinks.map((item) => (
+        <span class="cursor-default transition-colors hover:text-red-500">{item}</span>
+      ))}
+    </div>
+    <div class="hidden items-center gap-6 md:flex">
+      <div class="flex items-center gap-2">
+        <span class="font-bold tracking-tighter text-red-600">PH.</span>
+        <span>{siteMeta.phone}</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="font-bold tracking-tighter text-red-600">EM.</span>
+        <span>{siteMeta.email}</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="font-bold tracking-tighter text-red-600">AT.</span>
+        <span>{siteMeta.profile}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="sticky top-0 z-[100] w-full transition-all duration-300" id="main-header">
+  <div class="absolute inset-0 opacity-0 transition-opacity duration-300 backdrop-blur-md bg-black/40" id="header-bg"></div>
+
+  <div class="relative mx-auto flex max-w-[1280px] items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
+    <a href="/" class="group flex items-center gap-2 font-['Montserrat'] text-[28px] font-extrabold lowercase tracking-tighter text-white sm:text-[32px]">
+      <span class="text-red-600 transition-transform group-hover:-rotate-12">//</span>autocar
+    </a>
+
+    <nav class="hidden items-center gap-10 text-[11px] font-bold uppercase tracking-[0.25em] text-white/90 lg:flex">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            "group relative overflow-hidden py-1 transition-colors",
+            isActiveLink(link.href) ? "text-red-500" : "text-white/90"
+          ]}
+        >
+          <span class="block transition-transform duration-300 group-hover:-translate-y-full">{link.label}</span>
+          <span class="absolute left-0 top-full block text-red-500 transition-transform duration-300 group-hover:-translate-y-full">{link.label}</span>
+        </a>
+      ))}
+      <a href="/contacto" class="ml-4 border border-red-600 bg-red-600/10 px-6 py-3 text-white transition-all hover:bg-red-600 hover:shadow-[0_0_20px_rgba(220,38,38,0.4)]">
+        Pedir presupuesto
+      </a>
+    </nav>
+
+    <button id="menu-toggle" class="group flex flex-col gap-1.5 lg:hidden" aria-label="Abrir menu" type="button">
+      <span class="h-[2px] w-6 bg-white transition-all group-hover:bg-red-500" id="line1"></span>
+      <span class="h-[2px] w-6 bg-white transition-all group-hover:bg-red-500" id="line2"></span>
+      <span class="h-[2px] w-4 self-end bg-red-600 transition-all group-hover:w-6" id="line3"></span>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="pointer-events-none fixed inset-0 z-[-1] flex -translate-y-3 flex-col items-center justify-center bg-black/95 opacity-0 transition-all duration-500 lg:hidden">
+    <nav class="flex flex-col items-center gap-8 text-center">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            "font-['Montserrat'] text-3xl font-bold uppercase tracking-widest transition-colors hover:text-red-600",
+            isActiveLink(link.href) ? "text-red-500" : "text-white"
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+      <div class="mt-8 flex gap-6 font-['Montserrat'] text-xs tracking-widest text-white/40">
+        <span>INSTAGRAM</span>
+        <span>FACEBOOK</span>
+        <span>TWITTER</span>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const headerBg = document.getElementById("header-bg");
+  const line1 = document.getElementById("line1");
+  const line2 = document.getElementById("line2");
+  const line3 = document.getElementById("line3");
+
+  if (menuToggle && mobileMenu && line1 && line2 && line3) {
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.contains("opacity-100");
+
+      mobileMenu.classList.toggle("opacity-100", !isOpen);
+      mobileMenu.classList.toggle("pointer-events-all", !isOpen);
+      mobileMenu.classList.toggle("translate-y-0", !isOpen);
+      mobileMenu.classList.toggle("opacity-0", isOpen);
+      mobileMenu.classList.toggle("pointer-events-none", isOpen);
+      mobileMenu.classList.toggle("-translate-y-3", isOpen);
+
+      line1.classList.toggle("rotate-45", !isOpen);
+      line1.classList.toggle("translate-y-[8px]", !isOpen);
+      line2.classList.toggle("opacity-0", !isOpen);
+      line3.classList.toggle("-rotate-45", !isOpen);
+      line3.classList.toggle("-translate-y-[8px]", !isOpen);
+      line3.classList.toggle("w-6", !isOpen);
+    });
+  }
+
+  if (headerBg) {
+    window.addEventListener("scroll", () => {
+      headerBg.classList.toggle("opacity-100", window.scrollY > 50);
+    });
+  }
+</script>

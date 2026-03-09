@@ -1,0 +1,62 @@
+---
+import InquiryForm from "../shared/InquiryForm.astro";
+
+interface Props {
+  form: {
+    title: string;
+    submitLabel: string;
+    buttonId: string;
+    selectPlaceholder: string;
+    selectOptions: readonly string[];
+  };
+  promo: {
+    title: string;
+    body: string;
+    buttonLabel: string;
+    backgroundImage: string;
+    overlayImage: string;
+    overlayAlt: string;
+  };
+}
+
+const { form, promo } = Astro.props;
+---
+
+<section class="bg-[#f6f6f6] px-5 pb-16 text-[#141414] sm:px-8 sm:pb-24 lg:px-10">
+  <div class="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-2 lg:items-start">
+    <InquiryForm
+      title={form.title}
+      submitLabel={form.submitLabel}
+      buttonId={form.buttonId}
+      selectPlaceholder={form.selectPlaceholder}
+      selectOptions={form.selectOptions}
+    />
+
+    <article
+      class="relative overflow-hidden rounded-[10px] bg-cover bg-center px-8 py-8 text-white sm:px-10 sm:py-10"
+      style={`background-image: linear-gradient(180deg, rgba(12,12,12,0.8), rgba(12,12,12,0.82)), url('${promo.backgroundImage}');`}
+    >
+      <div class="relative z-10 max-w-[340px]">
+        <h2 class="font-['Montserrat'] text-[32px] font-semibold leading-[1.08] sm:text-[38px]">
+          {promo.title}
+        </h2>
+        <p class="mt-4 text-[15px] leading-7 text-white/75">
+          {promo.body}
+        </p>
+        <a
+          href="/catalogo"
+          class="mt-6 inline-flex bg-[#d10000] px-6 py-3 font-['Montserrat'] text-[15px] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#b70000]"
+        >
+          {promo.buttonLabel}
+        </a>
+      </div>
+
+      <img
+        src={promo.overlayImage}
+        alt={promo.overlayAlt}
+        loading="lazy"
+        class="pointer-events-none absolute bottom-0 right-0 w-[45%] min-w-[170px] max-w-[260px] object-contain"
+      />
+    </article>
+  </div>
+</section>

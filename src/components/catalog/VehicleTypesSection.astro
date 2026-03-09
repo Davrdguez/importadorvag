@@ -1,0 +1,38 @@
+---
+import SectionRibbon from "../shared/SectionRibbon.astro";
+
+interface VehicleType {
+  title: string;
+  image: string;
+}
+
+interface Props {
+  types: readonly VehicleType[];
+}
+
+const { types } = Astro.props;
+---
+
+<section class="bg-[#f7f7f7] px-5 py-10 text-center sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+  <div class="mx-auto max-w-[1280px]">
+    <SectionRibbon title="Selecciona tu tipo" />
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {types.map((type) => (
+        <article class="group">
+          <div class="flex justify-center">
+            <img
+              src={type.image}
+              alt={`Icono de tipo de vehiculo ${type.title}`}
+              loading="lazy"
+              class="h-[72px] w-auto object-contain opacity-70 transition-all duration-300 group-hover:opacity-100"
+            />
+          </div>
+          <h3 class="mt-4 font-['Montserrat'] text-[18px] font-bold uppercase tracking-[0.22em] text-[#6f6f6f]">
+            {type.title}
+          </h3>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

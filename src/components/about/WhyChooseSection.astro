@@ -1,0 +1,37 @@
+---
+import SectionRibbon from "../shared/SectionRibbon.astro";
+
+interface Item {
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+}
+
+interface Props {
+  title: string;
+  items: readonly Item[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<section class="bg-[#f6f6f6] px-5 py-14 text-center text-[#141414] sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+  <div class="mx-auto max-w-[1280px]">
+    <SectionRibbon title={title} />
+
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      {items.map((item) => (
+        <article class="rounded-[8px] border border-[#ebebeb] bg-white px-8 py-10 shadow-[0_12px_28px_rgba(0,0,0,0.04)] transition-transform duration-300 hover:-translate-y-1">
+          <img src={item.image} alt={item.alt} loading="lazy" class="mx-auto h-14 w-14 object-contain" />
+          <h2 class="mt-6 font-['Montserrat'] text-[20px] font-semibold text-[#d10000]">
+            {item.title}
+          </h2>
+          <p class="mt-3 text-[15px] leading-7 text-[#8a8a8a]">
+            {item.description}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

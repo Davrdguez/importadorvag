@@ -1,0 +1,35 @@
+---
+import { footerColumns, siteMeta, topLinks } from "../../data/site";
+---
+
+<section class="flex flex-col gap-4 bg-[linear-gradient(180deg,_#d10606,_#910000)] px-5 py-5 text-center text-white sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
+  <p class="font-['Montserrat'] text-[12px] font-bold uppercase tracking-[0.24em]">{siteMeta.footerPrompt}</p>
+  <p class="font-['Montserrat'] text-[28px] font-bold">{siteMeta.footerPhone}</p>
+  <div class="flex items-center justify-center gap-4 font-['Montserrat'] text-[10px] uppercase tracking-[0.24em] text-white/80">
+    {topLinks.map((item) => (
+      <span>{item}</span>
+    ))}
+    <span>o</span>
+  </div>
+</section>
+
+<footer class="bg-[linear-gradient(180deg,_#1b1b1b,_#111111)] px-5 py-14 text-white sm:px-8 lg:px-12">
+  <div class="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1.2fr_1fr_1fr_1fr_1fr]">
+    <div>
+      <p class="font-['Montserrat'] text-[34px] font-extrabold lowercase">autocar</p>
+      <p class="mt-4 max-w-[230px] text-sm leading-7 text-white/55">
+        Base modular en Astro lista para trabajar catalogo, contenido y captacion de leads para importacion diesel del Grupo VAG.
+      </p>
+    </div>
+    {footerColumns.map((column) => (
+      <div>
+        <p class="inline-flex bg-red-600 px-4 py-2 font-['Montserrat'] text-[14px] font-semibold uppercase text-white">{column.title}</p>
+        <div class="mt-5 space-y-3 text-sm text-white/60">
+          {column.links.map((link) => (
+            <p>{link}</p>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</footer>

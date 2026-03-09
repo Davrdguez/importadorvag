@@ -1,0 +1,65 @@
+---
+interface ModelCard {
+  slug: string;
+  brandSlug: string;
+  name: string;
+  bodyStyle: string;
+  years: string;
+  summary: string;
+  image: string;
+  alt: string;
+  variantCount: number;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  models: readonly ModelCard[];
+}
+
+const { title, description, models } = Astro.props;
+---
+
+<section class="bg-[#f7f7f7] px-5 py-14 sm:px-8 sm:py-18 lg:px-10">
+  <div class="mx-auto max-w-[1280px]">
+    <div class="max-w-[780px]">
+      <h2 class="font-['Montserrat'] text-[36px] font-semibold text-[#141414] sm:text-[44px]">
+        {title}
+      </h2>
+      {description && (
+        <p class="mt-4 text-[16px] leading-8 text-[#707070]">
+          {description}
+        </p>
+      )}
+    </div>
+
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      {models.map((model) => (
+        <a
+          href={`/catalogo/${model.brandSlug}/${model.slug}`}
+          class="group overflow-hidden rounded-[14px] border border-[#ececec] bg-white shadow-[0_10px_26px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.08)]"
+        >
+          <div class="bg-[#fafafa] p-5">
+            <img src={model.image} alt={model.alt} loading="lazy" class="h-[200px] w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]" />
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center justify-between font-['Montserrat'] text-[12px] font-bold uppercase tracking-[0.2em] text-[#9a9a9a]">
+              <span>{model.bodyStyle}</span>
+              <span>{model.years}</span>
+            </div>
+            <h3 class="mt-4 font-['Montserrat'] text-[30px] font-semibold text-[#141414] transition-colors group-hover:text-[#d10000]">
+              {model.name}
+            </h3>
+            <p class="mt-3 text-[15px] leading-8 text-[#6f6f6f]">
+              {model.summary}
+            </p>
+            <span class="mt-5 inline-flex rounded-full bg-[#f3f3f3] px-4 py-2 font-['Montserrat'] text-[12px] font-bold uppercase tracking-[0.18em] text-[#4d4d4d]">
+              {model.variantCount} variantes
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+---
+import SectionRibbon from "../shared/SectionRibbon.astro";
+
+interface Member {
+  name: string;
+  role: string;
+  image: string;
+  alt: string;
+}
+
+interface Props {
+  title: string;
+  members: readonly Member[];
+}
+
+const { title, members } = Astro.props;
+---
+
+<section class="bg-[#f6f6f6] px-5 py-20 text-[#141414] sm:px-8 sm:py-24 lg:px-10">
+  <div class="mx-auto max-w-[1280px]">
+    <SectionRibbon title={title} />
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
+      {members.map((member) => (
+        <article class="group text-center">
+          <div class="relative mx-auto max-w-[240px]">
+            <div class="absolute left-0 top-0 h-full w-full border-t-[4px] border-l-[4px] border-[#d10000] [transform:skewX(-10deg)]"></div>
+            <div class="relative overflow-hidden bg-white px-3 pt-3">
+              <img
+                src={member.image}
+                alt={member.alt}
+                loading="lazy"
+                class="h-[270px] w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+              />
+            </div>
+          </div>
+          <div class="mx-auto mt-4 inline-flex min-w-[180px] justify-center bg-[linear-gradient(90deg,_#d10000,_#ff2200)] px-5 py-3 font-['Montserrat'] text-[18px] font-semibold text-white [clip-path:polygon(8%_0,100%_0,92%_100%,0_100%)]">
+            {member.name}
+          </div>
+          <p class="mt-3 text-[14px] uppercase tracking-[0.16em] text-[#8a8a8a]">
+            {member.role}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

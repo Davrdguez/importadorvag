@@ -1,0 +1,85 @@
+---
+import CatalogGridSection from "../../../components/catalog/CatalogGridSection.astro";
+import ModelDirectorySection from "../../../components/catalog/ModelDirectorySection.astro";
+import SeoContentSection from "../../../components/catalog/SeoContentSection.astro";
+import FooterSection from "../../../components/home/FooterSection.astro";
+import Breadcrumbs from "../../../components/shared/Breadcrumbs.astro";
+import PageHero from "../../../components/shared/PageHero.astro";
+import {
+  catalogBrands,
+  catalogVehicles,
+  getBrandSeoContent,
+  getModelsByBrand,
+  getVehiclesByBrand,
+  type CatalogBrand
+} from "../../../data/catalog";
+import Layout from "../../../layouts/Layout.astro";
+import { siteUrl } from "../../../data/site";
+
+export function getStaticPaths() {
+  return catalogBrands.map((brand) => ({
+    params: { brand: brand.slug },
+    props: { brand }
+  }));
+}
+
+const { brand } = Astro.props as { brand: CatalogBrand };
+const models = getModelsByBrand(brand.slug).map((model) => ({
+  ...model,
+  variantCount: catalogVehicles.filter((vehicle) => vehicle.brandSlug === brand.slug && vehicle.modelSlug === model.slug).length
+}));
+const vehicles = getVehiclesByBrand(brand.slug);
+const seoContent = getBrandSeoContent(brand, models.length, vehicles.length);
+
+const title = `Importacion ${brand.name} diesel de Alemania | Modelos y unidades disponibles`;
+const description = `${brand.description} Catalogo de ${brand.name} diesel con revision tecnica, contacto asesorado y URLs limpias por modelo y variante.`;
+const canonical = `${siteUrl}/catalogo/${brand.slug}`;
+
+const breadcrumbItems = [
+  { label: "Inicio", href: "/" },
+  { label: "Catalogo", href: "/catalogo" },
+  { label: brand.name }
+] as const;
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${brand.name} diesel de Alemania`,
+    url: canonical,
+    description
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://cochesalemiavag.es/" },
+      { "@type": "ListItem", position: 2, name: "Catalogo", item: "https://cochesalemiavag.es/catalogo" },
+      { "@type": "ListItem", position: 3, name: brand.name, item: canonical }
+    ]
+  }
+];
+---
+
+<Layout title={title} description={description} canonical={canonical} schema={schema}>
+  <main class="overflow-x-hidden bg-[#f7f7f7]">
+    <PageHero
+      title={`${brand.name} diesel`}
+      backgroundImage="http://demo2.strongtheme.com/autocar/wp-content/uploads/sites/3/2021/07/autohome023.png"
+      activePath="/catalogo"
+    />
+    <Breadcrumbs items={breadcrumbItems} />
+    <ModelDirectorySection
+      title={`Modelos ${brand.name}`}
+      description={brand.description}
+      models={models}
+    />
+    <CatalogGridSection
+      vehicles={vehicles}
+      title={`Unidades ${brand.name}`}
+      description={`Variantes disponibles dentro de ${brand.name}. Desde aqui puedes bajar al modelo concreto o abrir directamente la ficha de cada unidad.`}
+    />
+    <SeoContentSection {...seoContent} />
+    <FooterSection />
+  </main>
+</Layout>

@@ -1,0 +1,37 @@
+---
+import SEO from "../components/SEO.astro";
+import "../styles/global.css";
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description, canonical, schema } = Astro.props;
+const schemaMarkup = schema ? JSON.stringify(schema) : null;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth bg-neutral-950">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <SEO title={title} description={description} canonical={canonical} />
+    {schemaMarkup && (
+      <script is:inline type="application/ld+json" set:html={schemaMarkup}></script>
+    )}
+  </head>
+  <body class="min-h-screen bg-neutral-950 font-['Montserrat'] text-white antialiased">
+    <slot />
+  </body>
+</html>

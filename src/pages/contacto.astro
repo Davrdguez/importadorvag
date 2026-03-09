@@ -1,0 +1,31 @@
+---
+import ContactLeadSection from "../components/contact/ContactLeadSection.astro";
+import SupportInfoSection from "../components/contact/SupportInfoSection.astro";
+import FooterSection from "../components/home/FooterSection.astro";
+import PageHero from "../components/shared/PageHero.astro";
+import { contactForm, contactHero, contactInfo, contactPromo, contactSeo, contactSupport } from "../data/contact";
+import Layout from "../layouts/Layout.astro";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "AutoDealer",
+  name: "Coches Alemania VAG",
+  url: contactSeo.canonical,
+  description: contactSeo.description,
+  telephone: "+34 620 874 040"
+};
+---
+
+<Layout
+  title={contactSeo.title}
+  description={contactSeo.description}
+  canonical={contactSeo.canonical}
+  schema={schema}
+>
+  <main class="overflow-x-hidden bg-[#f6f6f6]">
+    <PageHero {...contactHero} activePath="/contacto" />
+    <SupportInfoSection support={contactSupport} info={contactInfo} />
+    <ContactLeadSection form={contactForm} promo={contactPromo} />
+    <FooterSection />
+  </main>
+</Layout>

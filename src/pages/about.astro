@@ -1,0 +1,50 @@
+---
+import AboutIntroSection from "../components/about/AboutIntroSection.astro";
+import AboutSpotlightSection from "../components/about/AboutSpotlightSection.astro";
+import DriveTodaySection from "../components/about/DriveTodaySection.astro";
+import FaqSection from "../components/about/FaqSection.astro";
+import ServiceExperienceSection from "../components/about/ServiceExperienceSection.astro";
+import TeamSection from "../components/about/TeamSection.astro";
+import WhyChooseSection from "../components/about/WhyChooseSection.astro";
+import FooterSection from "../components/home/FooterSection.astro";
+import PageHero from "../components/shared/PageHero.astro";
+import {
+  aboutFaq,
+  aboutHero,
+  aboutIntro,
+  aboutSeo,
+  aboutSpotlight,
+  aboutTeam,
+  driveToday,
+  serviceExperience,
+  whyChoose
+} from "../data/about";
+import Layout from "../layouts/Layout.astro";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "AutoDealer",
+  name: "Sobre nosotros Coches Alemania VAG",
+  url: aboutSeo.canonical,
+  description: aboutSeo.description
+};
+---
+
+<Layout
+  title={aboutSeo.title}
+  description={aboutSeo.description}
+  canonical={aboutSeo.canonical}
+  schema={schema}
+>
+  <main class="overflow-x-hidden bg-[#f6f6f6]">
+    <PageHero {...aboutHero} activePath="/about" />
+    <AboutIntroSection {...aboutIntro} />
+    <AboutSpotlightSection {...aboutSpotlight} />
+    <WhyChooseSection {...whyChoose} />
+    <ServiceExperienceSection {...serviceExperience} />
+    <TeamSection {...aboutTeam} />
+    <DriveTodaySection {...driveToday} />
+    <FaqSection {...aboutFaq} />
+    <FooterSection />
+  </main>
+</Layout>

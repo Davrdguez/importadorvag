@@ -1,0 +1,75 @@
+---
+import BrandDirectorySection from "../../components/catalog/BrandDirectorySection.astro";
+import CatalogGridSection from "../../components/catalog/CatalogGridSection.astro";
+import CatalogPromoSection from "../../components/catalog/CatalogPromoSection.astro";
+import SeoContentSection from "../../components/catalog/SeoContentSection.astro";
+import VehicleTypesSection from "../../components/catalog/VehicleTypesSection.astro";
+import FooterSection from "../../components/home/FooterSection.astro";
+import Breadcrumbs from "../../components/shared/Breadcrumbs.astro";
+import PageHero from "../../components/shared/PageHero.astro";
+import {
+  catalogHero,
+  catalogPromo,
+  catalogSeo,
+  catalogSeoContent,
+  catalogBrands,
+  featuredVehicles,
+  getModelsByBrand,
+  getVehiclesByBrand,
+  vehicleTypes
+} from "../../data/catalog";
+import Layout from "../../layouts/Layout.astro";
+
+const brandCards = catalogBrands.map((brand) => ({
+  ...brand,
+  modelCount: getModelsByBrand(brand.slug).length,
+  vehicleCount: getVehiclesByBrand(brand.slug).length
+}));
+
+const breadcrumbItems = [
+  { label: "Inicio", href: "/" },
+  { label: "Catalogo" }
+] as const;
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Catalogo de vehiculos Grupo VAG",
+    url: catalogSeo.canonical,
+    description: catalogSeo.description
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      item: index === 0 ? "https://cochesalemiavag.es/" : catalogSeo.canonical
+    }))
+  }
+];
+---
+
+<Layout
+  title={catalogSeo.title}
+  description={catalogSeo.description}
+  canonical={catalogSeo.canonical}
+  schema={schema}
+>
+  <main class="overflow-x-hidden bg-[#f7f7f7]">
+    <PageHero {...catalogHero} activePath="/catalogo" />
+    <Breadcrumbs items={breadcrumbItems} />
+    <BrandDirectorySection brands={brandCards} />
+    <CatalogGridSection
+      vehicles={featuredVehicles}
+      title="Variantes destacadas"
+      description="Una seleccion de unidades tipicas del mercado aleman para que la estructura del catalogo ya funcione por marca, modelo y ficha individual."
+    />
+    <SeoContentSection {...catalogSeoContent} />
+    <CatalogPromoSection {...catalogPromo} />
+    <VehicleTypesSection types={vehicleTypes} />
+    <FooterSection />
+  </main>
+</Layout>

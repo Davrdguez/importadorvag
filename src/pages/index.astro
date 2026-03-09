@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BlogSection from "../components/home/BlogSection.astro";
+import BrandsSection from "../components/home/BrandsSection.astro";
+import CatalogSection from "../components/home/CatalogSection.astro";
+import ContactSection from "../components/home/ContactSection.astro";
+import DualActionSection from "../components/home/DualActionSection.astro";
+import FooterSection from "../components/home/FooterSection.astro";
+import HeroSection from "../components/home/HeroSection.astro";
+import PromoSection from "../components/home/PromoSection.astro";
+import ReviewsSection from "../components/home/ReviewsSection.astro";
+import { getLatestBlogPosts } from "../data/blog";
+
+const title = "Importacion de Coches Diesel Grupo VAG desde Alemania";
+const description =
+  "Home adaptada en Astro para importacion de coches diesel del Grupo VAG desde Alemania con revision tecnica por ingeniero mecanico colegiado.";
+const canonical = "https://cochesalemiavag.es/";
+const latestPosts = await getLatestBlogPosts(3);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "AutoDealer",
+  name: "Coches Alemania VAG",
+  url: canonical,
+  telephone: "+34 620 874 040",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Avenida de Europa 14",
+    addressLocality: "Madrid",
+    postalCode: "28023",
+    addressCountry: "ES"
+  },
+  areaServed: "Espana",
+  description,
+  slogan: "Revision Tecnica por Ingeniero Mecanico Colegiado"
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} schema={schema}>
+  <main class="overflow-x-hidden bg-[#efefef]">
+    <h1 class="sr-only">Expertos en Importacion de Coches Diesel Grupo VAG</h1>
+
+    <div class="w-full overflow-hidden bg-[#f3f3f3]">
+      <HeroSection />
+      <BrandsSection />
+      <DualActionSection />
+      <CatalogSection />
+      <PromoSection />
+      <ContactSection />
+      <ReviewsSection />
+      <BlogSection posts={latestPosts} />
+      <FooterSection />
+    </div>
+  </main>
+</Layout>

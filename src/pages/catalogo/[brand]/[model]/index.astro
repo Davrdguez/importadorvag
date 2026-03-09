@@ -1,0 +1,101 @@
+---
+import CatalogGridSection from "../../../../components/catalog/CatalogGridSection.astro";
+import SeoContentSection from "../../../../components/catalog/SeoContentSection.astro";
+import FooterSection from "../../../../components/home/FooterSection.astro";
+import Breadcrumbs from "../../../../components/shared/Breadcrumbs.astro";
+import PageHero from "../../../../components/shared/PageHero.astro";
+import {
+  catalogModels,
+  getBrandBySlug,
+  getModelSeoContent,
+  getVehiclesByModel,
+  type CatalogModel
+} from "../../../../data/catalog";
+import { siteUrl } from "../../../../data/site";
+import Layout from "../../../../layouts/Layout.astro";
+
+export function getStaticPaths() {
+  return catalogModels.map((model) => ({
+    params: { brand: model.brandSlug, model: model.slug },
+    props: { model }
+  }));
+}
+
+const { model } = Astro.props as { model: CatalogModel };
+const brand = getBrandBySlug(model.brandSlug);
+const vehicles = getVehiclesByModel(model.brandSlug, model.slug);
+const seoContent =
+  brand ? getModelSeoContent(brand, model, vehicles.length) : null;
+
+const title = `${brand?.name ?? ""} ${model.name} diesel de Alemania | Versiones y unidades TDI`;
+const description = `${model.summary} Fichas por variante, contacto directo y analisis previo para importacion de ${brand?.name ?? ""} ${model.name} a Espana.`;
+const canonical = `${siteUrl}/catalogo/${model.brandSlug}/${model.slug}`;
+
+const breadcrumbItems = [
+  { label: "Inicio", href: "/" },
+  { label: "Catalogo", href: "/catalogo" },
+  { label: brand?.name ?? "", href: `/catalogo/${model.brandSlug}` },
+  { label: model.name }
+] as const;
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${brand?.name ?? ""} ${model.name}`,
+    url: canonical,
+    description
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://cochesalemiavag.es/" },
+      { "@type": "ListItem", position: 2, name: "Catalogo", item: "https://cochesalemiavag.es/catalogo" },
+      { "@type": "ListItem", position: 3, name: brand?.name ?? "", item: `https://cochesalemiavag.es/catalogo/${model.brandSlug}` },
+      { "@type": "ListItem", position: 4, name: model.name, item: canonical }
+    ]
+  }
+];
+---
+
+<Layout title={title} description={description} canonical={canonical} schema={schema}>
+  <main class="overflow-x-hidden bg-[#f7f7f7]">
+    <PageHero
+      title={`${brand?.name ?? ""} ${model.name}`}
+      backgroundImage="http://demo2.strongtheme.com/autocar/wp-content/uploads/sites/3/2021/07/autohome023.png"
+      activePath="/catalogo"
+    />
+    <Breadcrumbs items={breadcrumbItems} />
+
+    <section class="bg-[#f7f7f7] px-5 py-14 sm:px-8 lg:px-10">
+      <div class="mx-auto grid max-w-[1280px] gap-8 rounded-[14px] border border-[#ececec] bg-white p-6 shadow-[0_12px_28px_rgba(0,0,0,0.04)] lg:grid-cols-[0.42fr_0.58fr] lg:items-center">
+        <div class="bg-[#fafafa] p-4">
+          <img src={model.image} alt={model.alt} loading="lazy" class="h-[260px] w-full object-contain" />
+        </div>
+        <div>
+          <p class="font-['Montserrat'] text-[12px] font-bold uppercase tracking-[0.24em] text-[#d10000]">
+            {brand?.name} / {model.bodyStyle}
+          </p>
+          <h2 class="mt-3 font-['Montserrat'] text-[42px] font-semibold text-[#141414] sm:text-[50px]">
+            {model.name}
+          </h2>
+          <p class="mt-3 font-['Montserrat'] text-[13px] uppercase tracking-[0.24em] text-[#9a9a9a]">
+            {model.years}
+          </p>
+          <p class="mt-5 max-w-[65ch] text-[16px] leading-8 text-[#707070]">
+            {model.summary}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <CatalogGridSection
+      vehicles={vehicles}
+      title={`Variantes ${model.name}`}
+      description={`Estas son las configuraciones preparadas para ${brand?.name} ${model.name}. Cada ficha se orienta a contacto, revision y presupuesto final de importacion.`}
+    />
+    {seoContent && <SeoContentSection {...seoContent} />}
+    <FooterSection />
+  </main>
+</Layout>

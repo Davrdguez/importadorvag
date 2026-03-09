@@ -1,0 +1,117 @@
+---
+import HeaderSection from "./HeaderSection.astro";
+import { heroSlides } from "../../data/home";
+---
+
+<section
+  class="relative isolate w-full overflow-hidden bg-cover bg-center bg-no-repeat"
+  style={`background-image: radial-gradient(circle at 50% 42%, rgba(160,0,0,0.3), transparent 34%), linear-gradient(90deg, rgba(3,3,3,0.92) 0%, rgba(18,0,0,0.82) 52%, rgba(5,3,3,0.94) 100%), url('http://demo2.strongtheme.com/autocar/wp-content/uploads/sites/3/2021/07/Neon-Spotlight-2.jpg');`}
+>
+  <div class="h-full w-full bg-[linear-gradient(180deg,_rgba(0,0,0,0.4),_rgba(0,0,0,0.1))]">
+    <HeaderSection activePath="/" />
+
+    <div class="relative mx-auto grid min-h-[500px] max-w-[1280px] items-center gap-8 px-5 pb-16 pt-10 sm:min-h-[600px] sm:px-8 md:gap-10 lg:min-h-[700px] lg:grid-cols-2 lg:px-10 lg:pb-20 lg:pt-12">
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-40 bg-[radial-gradient(circle_at_50%_100%,_rgba(220,38,38,0.4),_transparent_40%),linear-gradient(180deg,_rgba(0,0,0,0)_0%,_rgba(0,0,0,0.8)_100%)] blur-[4px]"></div>
+
+      <div class="relative z-20 max-w-[620px] pb-8 sm:pb-12 lg:pb-0">
+        <p id="hero-kicker" class="font-['Montserrat'] text-[11px] font-bold uppercase tracking-[0.34em] text-white/75 sm:text-[12px]">
+          {heroSlides[2].kicker}
+        </p>
+        <h2 id="hero-title" class="mt-4 font-['Montserrat'] text-[clamp(3rem,6vw,5.5rem)] font-extrabold uppercase leading-[0.95] tracking-tighter text-white drop-shadow-lg">
+          {heroSlides[2].title}
+        </h2>
+        <div class="mt-8 flex w-max cursor-pointer items-center gap-4 text-white group sm:mt-10">
+          <span class="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-xl shadow-[0_0_0_6px_rgba(255,255,255,0.03)] transition-all group-hover:border-red-600 group-hover:bg-red-600">+</span>
+          <span class="font-['Montserrat'] text-[13px] uppercase tracking-[0.28em] text-white/90 transition-colors group-hover:text-white">Detalles</span>
+          <span class="h-px w-16 bg-red-600/90 transition-all group-hover:w-20"></span>
+        </div>
+      </div>
+
+      <div class="relative z-10 flex h-[300px] w-full items-center justify-end sm:h-[400px] md:h-[450px] lg:h-full">
+        <div class="absolute bottom-[10%] right-[10%] h-8 w-[80%] rounded-[100%] bg-red-900/60 blur-2xl lg:bottom-[15%]"></div>
+        <div class="absolute bottom-[5%] right-[5%] h-4 w-[70%] rounded-[100%] bg-black/80 blur-xl lg:bottom-[10%]"></div>
+
+        {heroSlides.map((slide, index) => (
+          <img
+            src={slide.image}
+            alt={slide.alt}
+            data-hero-image
+            data-index={index}
+            width="1200"
+            height="600"
+            loading={index === 2 ? "eager" : "lazy"}
+            class:list={[
+              "absolute top-1/2 right-[-5%] w-[140%] max-w-none -translate-y-1/2 object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.7)] transition-all duration-700 ease-out md:right-[-10%] md:w-[160%] lg:right-[-20%] lg:w-[190%] xl:right-[-35%] xl:w-[220%]",
+              index === 2 ? "scale-100 opacity-100" : "pointer-events-none translate-x-12 scale-95 opacity-0"
+            ]}
+          />
+        ))}
+
+        <div class="absolute right-0 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-6 lg:flex">
+          {heroSlides.map((_, index) => (
+            <button
+              type="button"
+              data-hero-marker
+              data-index={index}
+              class:list={[
+                "text-[11px] font-bold uppercase tracking-[0.25em] transition-all duration-300 hover:scale-110 hover:text-white",
+                index === 2 ? "text-white" : "text-white/30"
+              ]}
+            >
+              {`0${index + 1}`}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    const slides = [
+      { kicker: "Berlina premium de acceso para cinco plazas", title: "AUDI TRON GT" },
+      { kicker: "Edicion final AMG S65 disponible", title: "MERCEDES AMG" },
+      { kicker: "Nueva Grand Edition disponible", title: "MERCEDES 550" }
+    ];
+
+    const kicker = document.getElementById("hero-kicker");
+    const title = document.getElementById("hero-title");
+    const images = Array.from(document.querySelectorAll("[data-hero-image]"));
+    const markers = Array.from(document.querySelectorAll("[data-hero-marker]"));
+
+    const activate = (index) => {
+      if (kicker) kicker.textContent = slides[index].kicker;
+      if (title) title.textContent = slides[index].title;
+
+      images.forEach((image, imageIndex) => {
+        const active = imageIndex === index;
+        image.classList.toggle("opacity-100", active);
+        image.classList.toggle("scale-100", active);
+        image.classList.toggle("opacity-0", !active);
+        image.classList.toggle("scale-95", !active);
+      });
+
+      markers.forEach((marker, markerIndex) => {
+        marker.classList.toggle("text-white", markerIndex === index);
+        marker.classList.toggle("text-white/30", markerIndex !== index);
+      });
+    };
+
+    const syncToScroll = () => {
+      const limit = Math.max(window.innerHeight * 0.9, 1);
+      const progress = Math.min(window.scrollY / limit, 0.999);
+      const index = Math.max(0, slides.length - 1 - Math.floor(progress * slides.length));
+      activate(index);
+    };
+
+    markers.forEach((marker) => {
+      marker.addEventListener("click", () => {
+        const index = Number(marker.getAttribute("data-index") || "0");
+        activate(index);
+      });
+    });
+
+    activate(2);
+    window.addEventListener("scroll", syncToScroll, { passive: true });
+    window.addEventListener("load", syncToScroll);
+  </script>
+</section>

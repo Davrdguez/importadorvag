@@ -1,0 +1,40 @@
+---
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  title: string;
+  backgroundImage: string;
+  stats: readonly Stat[];
+}
+
+const { title, backgroundImage, stats } = Astro.props;
+---
+
+<section class="bg-[#f6f6f6] px-5 pt-4 sm:px-8 lg:px-10">
+  <div
+    class="relative mx-auto min-h-[360px] max-w-[1600px] overflow-visible bg-[#0f0d0e] bg-cover bg-right bg-no-repeat"
+    style={`background-image: linear-gradient(90deg, rgba(12,12,12,0.98), rgba(12,12,12,0.72) 58%, rgba(12,12,12,0.2)), url('${backgroundImage}');`}
+  >
+    <div class="flex min-h-[260px] items-center justify-center px-6 pt-10 text-center sm:px-10 lg:min-h-[300px]">
+      <h2 class="font-['Montserrat'] text-[28px] font-semibold uppercase tracking-[0.04em] text-white sm:text-[38px]">
+        {title}
+      </h2>
+    </div>
+
+    <div class="relative z-10 mx-auto grid max-w-[980px] gap-4 px-6 pb-[-1px] sm:grid-cols-3 sm:px-10">
+      {stats.map((stat) => (
+        <article class="translate-y-8 bg-[linear-gradient(180deg,_#ff2200,_#c40000)] px-6 py-7 text-center text-white shadow-[18px_0_24px_rgba(0,0,0,0.35)] [clip-path:polygon(8%_0,100%_0,92%_100%,0_100%)]">
+          <p class="font-['Montserrat'] text-[34px] font-bold leading-none sm:text-[40px]">
+            {stat.value}
+          </p>
+          <p class="mt-3 font-['Montserrat'] text-[13px] font-bold uppercase tracking-[0.22em] text-white/90">
+            {stat.label}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

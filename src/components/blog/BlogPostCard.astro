@@ -1,0 +1,65 @@
+---
+import type { BlogPostPreview } from "../../data/blog";
+
+interface Props {
+  post: BlogPostPreview;
+  compact?: boolean;
+}
+
+const { post, compact = false } = Astro.props;
+
+const formattedDate = post.publishDate.toLocaleDateString("es-ES", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric"
+});
+---
+
+<article class:list={[
+  "group overflow-hidden rounded-[14px] border border-[#ececec] bg-white shadow-[0_12px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.08)]",
+  compact ? "" : "h-full"
+]}>
+  <a href={`/blog/${post.slug}`} class="block">
+    <img
+      src={post.image}
+      alt={post.imageAlt}
+      loading="lazy"
+      class:list={[
+        "w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]",
+        compact ? "aspect-[1.35/1]" : "aspect-[1.25/1]"
+      ]}
+    />
+  </a>
+
+  <div class="p-6">
+    <div class="flex flex-wrap gap-2">
+      {post.tags.slice(0, 2).map((tag) => (
+        <span class="rounded-full bg-[#f3f3f3] px-3 py-1 font-['Montserrat'] text-[11px] font-bold uppercase tracking-[0.18em] text-[#575757]">
+          {tag}
+        </span>
+      ))}
+    </div>
+
+    <p class="mt-4 font-['Montserrat'] text-[12px] uppercase tracking-[0.2em] text-[#8c8c8c]">
+      {formattedDate} · {post.author}
+    </p>
+
+    <h2 class:list={[
+      "mt-4 font-['Montserrat'] font-semibold text-[#141414] transition-colors group-hover:text-[#d10000]",
+      compact ? "text-[24px] leading-7" : "text-[28px] leading-8"
+    ]}>
+      <a href={`/blog/${post.slug}`}>{post.title}</a>
+    </h2>
+
+    <p class="mt-4 text-[15px] leading-8 text-[#6e6e6e]">
+      {post.excerpt}
+    </p>
+
+    <a
+      href={`/blog/${post.slug}`}
+      class="mt-6 inline-flex font-['Montserrat'] text-[14px] font-bold uppercase tracking-[0.18em] text-[#d10000] transition-all hover:tracking-[0.22em]"
+    >
+      Leer articulo
+    </a>
+  </div>
+</article>
