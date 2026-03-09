@@ -5,7 +5,7 @@ export const topLinks = ["f", "t", "i"] as const;
 export const navLinks = [
   { href: "/", label: "Inicio" },
   { href: "/catalogo", label: "Catalogo" },
-  { href: "/about", label: "Nosotros" },
+  { href: "/sobre-nosotros", label: "Nosotros" },
   { href: "/blog", label: "Blog" },
   { href: "/contacto", label: "Contacto" }
 ] as const;
