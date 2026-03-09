@@ -13,28 +13,49 @@ export const navLinks = [
 export const socialLinks = ["Facebook", "Twitter", "Instagram"] as const;
 
 export const siteMeta = {
-  phone: "+62 087 400 40",
-  email: "autocar@email.com",
-  profile: "8 Jorinton Profile",
-  footerPhone: "+6208740040",
+  phone: "+34 661 34 87 96",
+  email: "hola@davrdguez.com",
+  profile: "David San José",
+  footerPhone: "+34 661 34 87 96",
   footerPrompt: "Tienes dudas? Estamos para ayudarte"
 } as const;
 
 export const footerColumns = [
   {
     title: "Modelos",
-    links: ["Volkswagen", "SEAT", "Audi", "Skoda"]
+    links: [
+      { label: "Volkswagen", href: "/catalogo/volkswagen" },
+      { label: "SEAT", href: "/catalogo/seat" },
+      { label: "Audi", href: "/catalogo/audi" },
+      { label: "Skoda", href: "/catalogo/skoda" }
+    ]
   },
   {
     title: "Enlaces utiles",
-    links: ["Revision mecanica", "Proceso de importacion", "Matriculacion", "Consejos de compra"]
+    links: [
+      { label: "Revision mecanica", href: "/about" },
+      { label: "Proceso de importacion", href: "/about" },
+      { label: "Matriculacion", href: "/about" },
+      { label: "Consejos de compra", href: "/blog" }
+    ]
   },
   {
     title: "Sobre nosotros",
-    links: ["Empresa", "Servicio tecnico", "Novedades", "Catalogo"]
+    links: [
+      { label: "Empresa", href: "/about" },
+      { label: "Servicio tecnico", href: "/about" },
+      { label: "Novedades", href: "/blog" },
+      { label: "Catalogo", href: "/catalogo" }
+    ]
   },
   {
     title: "Ayuda",
-    links: ["Contacto", "Preguntas frecuentes", "Politica de privacidad", "Aviso legal"]
+    links: [
+      { label: "Contacto", href: "/contacto" },
+      { label: "Preguntas frecuentes", href: "/about" },
+      { label: "Politica de privacidad", href: "/politica-privacidad" },
+      { label: "Politica de cookies", href: "/politica-cookies" },
+      { label: "Aviso legal", href: "/aviso-legal" }
+    ]
   }
 ] as const;

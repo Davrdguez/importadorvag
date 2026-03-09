@@ -3,7 +3,16 @@ import { getCollection } from "astro:content";
 import { catalogBrands, catalogModels, catalogVehicles } from "../data/catalog";
 import { siteUrl } from "../data/site";
 
-const staticPages = ["/", "/about", "/contacto", "/catalogo", "/blog"] as const;
+const staticPages = [
+  "/",
+  "/about",
+  "/contacto",
+  "/catalogo",
+  "/blog",
+  "/aviso-legal",
+  "/politica-privacidad",
+  "/politica-cookies"
+] as const;
 
 const buildUrlEntry = (path: string) => {
   const cleanPath = path === "/" ? "" : path;

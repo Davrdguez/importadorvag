@@ -1,0 +1,76 @@
+---
+import FooterSection from "../components/home/FooterSection.astro";
+import PageHero from "../components/shared/PageHero.astro";
+import { siteMeta, siteUrl } from "../data/site";
+import Layout from "../layouts/Layout.astro";
+
+const canonical = `${siteUrl}/aviso-legal`;
+const title = "Aviso Legal | Importar VAG Alemania";
+const description =
+  "Informacion legal del titular, condiciones de uso y limitacion de responsabilidad del sitio Importar VAG Alemania.";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: title,
+  description,
+  url: canonical
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} schema={schema}>
+  <main class="overflow-x-hidden bg-[#f6f6f6] text-[#141414]">
+    <PageHero
+      title="Aviso legal"
+      backgroundImage="http://demo2.strongtheme.com/autocar/wp-content/uploads/sites/3/2021/07/autohome023.png"
+      activePath="/aviso-legal"
+    />
+
+    <section class="px-5 py-12 sm:px-8 lg:px-10">
+      <div class="mx-auto max-w-[900px] rounded-[10px] border border-[#e5e5e5] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:p-8">
+        <p class="text-sm text-[#666666]">Ultima actualizacion: 9 de marzo de 2026</p>
+
+        <h2 class="mt-6 font-['Montserrat'] text-[24px] font-bold">1. Titular del sitio web</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Informacion y de Comercio Electronico (LSSI-CE),
+          se informa de que este sitio web es titularidad de <strong>{siteMeta.profile}</strong>.
+        </p>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          Email de contacto: <a href={`mailto:${siteMeta.email}`} class="text-[#d10000] hover:underline">{siteMeta.email}</a>.
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">2. Objeto y condiciones de uso</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          El presente sitio tiene por objeto informar sobre servicios de asesoramiento en importacion de vehiculos del Grupo VAG y facilitar
+          el contacto comercial con potenciales clientes. El acceso y uso del sitio atribuye la condicion de usuario e implica la aceptacion
+          de este aviso legal.
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">3. Propiedad intelectual e industrial</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          Todos los contenidos del sitio (textos, imagenes, diseno, estructura, codigo y elementos graficos) estan protegidos por derechos
+          de propiedad intelectual e industrial. Queda prohibida su reproduccion, distribucion o transformacion sin autorizacion expresa del titular.
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">4. Responsabilidad</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          El titular no garantiza la ausencia de errores en los contenidos ni la disponibilidad permanente del sitio, aunque adoptara medidas
+          razonables para evitarlos y corregirlos. La informacion publicada tiene caracter orientativo y no constituye oferta contractual cerrada.
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">5. Enlaces externos</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          Este sitio puede incluir enlaces a terceros. El titular no asume responsabilidad por contenidos, politicas o practicas de sitios externos.
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">6. Legislacion aplicable y jurisdiccion</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          La relacion entre usuario y titular se regira por la normativa espanola vigente. Para cualquier controversia, las partes se someten
+          a los juzgados y tribunales competentes conforme a derecho.
+        </p>
+      </div>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>

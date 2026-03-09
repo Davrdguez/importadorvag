@@ -1,5 +1,6 @@
 ---
 import SEO from "../components/SEO.astro";
+import CookieBanner from "../components/shared/CookieBanner.astro";
 import favicon from "../assets/favicon.png";
 import "../styles/global.css";
 
@@ -35,5 +36,6 @@ const schemaMarkup = schema ? JSON.stringify(schema) : null;
   </head>
   <body class="min-h-screen bg-neutral-950 font-['Montserrat'] text-white antialiased">
     <slot />
+    <CookieBanner />
   </body>
 </html>

@@ -1,0 +1,85 @@
+---
+import FooterSection from "../components/home/FooterSection.astro";
+import PageHero from "../components/shared/PageHero.astro";
+import { siteMeta, siteUrl } from "../data/site";
+import Layout from "../layouts/Layout.astro";
+
+const canonical = `${siteUrl}/politica-privacidad`;
+const title = "Politica de Privacidad | Importar VAG Alemania";
+const description =
+  "Politica de privacidad sobre recogida, uso, conservacion y derechos de las personas usuarias en Importar VAG Alemania.";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: title,
+  description,
+  url: canonical
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} schema={schema}>
+  <main class="overflow-x-hidden bg-[#f6f6f6] text-[#141414]">
+    <PageHero
+      title="Politica de privacidad"
+      backgroundImage="http://demo2.strongtheme.com/autocar/wp-content/uploads/sites/3/2021/07/autohome023.png"
+      activePath="/politica-privacidad"
+    />
+
+    <section class="px-5 py-12 sm:px-8 lg:px-10">
+      <div class="mx-auto max-w-[900px] rounded-[10px] border border-[#e5e5e5] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.04)] sm:p-8">
+        <p class="text-sm text-[#666666]">Ultima actualizacion: 9 de marzo de 2026</p>
+
+        <h2 class="mt-6 font-['Montserrat'] text-[24px] font-bold">1. Responsable del tratamiento</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          Responsable: <strong>{siteMeta.profile}</strong>. Email de contacto:
+          <a href={`mailto:${siteMeta.email}`} class="text-[#d10000] hover:underline"> {siteMeta.email}</a>.
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">2. Datos que se recogen</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          A traves de los formularios del sitio se pueden recoger datos identificativos y de contacto, como nombre, apellidos, telefono,
+          correo electronico y mensaje de consulta, asi como la referencia del vehiculo de interes cuando corresponda.
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">3. Finalidad y base juridica</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">Los datos se tratan para:</p>
+        <ul class="mt-2 list-disc space-y-2 pl-5 text-[15px] leading-7 text-[#4f4f4f]">
+          <li>Atender solicitudes de informacion y presupuesto.</li>
+          <li>Gestionar comunicaciones relacionadas con servicios de importacion.</li>
+          <li>Mantener seguimiento comercial de consultas iniciadas por el usuario.</li>
+        </ul>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          La base juridica principal es el consentimiento del interesado y, en su caso, la aplicacion de medidas precontractuales solicitadas.
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">4. Destinatarios y encargados</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          Los datos no se ceden a terceros salvo obligacion legal. Para la gestion de formularios puede intervenir el proveedor FormSubmit,
+          actuando como encargado tecnico del tratamiento segun sus propios terminos y medidas de seguridad.
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">5. Conservacion</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          Los datos se conservaran durante el tiempo necesario para atender la consulta y, posteriormente, durante los plazos exigidos por
+          obligaciones legales o para la formulacion, ejercicio y defensa de reclamaciones.
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">6. Derechos de las personas interesadas</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          Puede ejercer sus derechos de acceso, rectificacion, supresion, oposicion, limitacion y portabilidad escribiendo a
+          <a href={`mailto:${siteMeta.email}`} class="text-[#d10000] hover:underline"> {siteMeta.email}</a>, indicando claramente su solicitud.
+          Si considera que no se ha atendido correctamente, puede presentar reclamacion ante la Agencia Espanola de Proteccion de Datos (AEPD).
+        </p>
+
+        <h2 class="mt-8 font-['Montserrat'] text-[24px] font-bold">7. Medidas de seguridad</h2>
+        <p class="mt-3 text-[15px] leading-7 text-[#4f4f4f]">
+          Se aplican medidas tecnicas y organizativas razonables para proteger los datos personales frente a perdida, acceso no autorizado
+          o alteracion.
+        </p>
+      </div>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>

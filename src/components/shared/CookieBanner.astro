@@ -1,0 +1,77 @@
+<div
+  id="cookie-banner"
+  class="fixed bottom-4 left-4 right-4 z-[999] hidden rounded-[12px] border border-[#2f2f2f] bg-[#111111]/95 p-4 text-white shadow-[0_18px_40px_rgba(0,0,0,0.45)] backdrop-blur sm:left-6 sm:right-6 sm:p-5 lg:left-1/2 lg:right-auto lg:w-[920px] lg:-translate-x-1/2"
+>
+  <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+    <div class="max-w-[640px]">
+      <p class="font-['Montserrat'] text-[13px] font-bold uppercase tracking-[0.18em] text-red-500">
+        Cookies
+      </p>
+      <p class="mt-2 text-[14px] leading-6 text-white/80">
+        Usamos cookies tecnicas para el funcionamiento del sitio y, en su caso, cookies de terceros asociadas al formulario.
+        Puedes aceptar o rechazar las no necesarias.
+      </p>
+      <p class="mt-2 text-[13px] text-white/65">
+        <a href="/politica-cookies" class="text-white underline underline-offset-2 hover:text-red-400">Politica de cookies</a>
+        ·
+        <a href="/politica-privacidad" class="text-white underline underline-offset-2 hover:text-red-400">Politica de privacidad</a>
+      </p>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <button
+        type="button"
+        id="cookie-reject"
+        class="border border-white/25 px-4 py-2 font-['Montserrat'] text-[12px] font-semibold uppercase tracking-[0.15em] text-white/90 transition hover:border-white/45 hover:text-white"
+      >
+        Rechazar
+      </button>
+      <button
+        type="button"
+        id="cookie-accept"
+        class="bg-[#d10000] px-4 py-2 font-['Montserrat'] text-[12px] font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-[#b60000]"
+      >
+        Aceptar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  const COOKIE_KEY = "vagimport_cookie_consent_v1";
+  const banner = document.getElementById("cookie-banner");
+  const accept = document.getElementById("cookie-accept");
+  const reject = document.getElementById("cookie-reject");
+
+  const hideBanner = () => {
+    if (banner) {
+      banner.classList.add("hidden");
+    }
+  };
+
+  const setConsent = (value) => {
+    try {
+      localStorage.setItem(COOKIE_KEY, JSON.stringify({ value, updatedAt: new Date().toISOString() }));
+    } catch {}
+    hideBanner();
+  };
+
+  try {
+    const existing = localStorage.getItem(COOKIE_KEY);
+    if (!existing && banner) {
+      banner.classList.remove("hidden");
+    }
+  } catch {
+    if (banner) {
+      banner.classList.remove("hidden");
+    }
+  }
+
+  if (accept) {
+    accept.addEventListener("click", () => setConsent("accepted"));
+  }
+
+  if (reject) {
+    reject.addEventListener("click", () => setConsent("rejected"));
+  }
+</script>
